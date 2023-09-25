@@ -174,9 +174,10 @@ export default {
         body:body.value,
         userId:createdBy.value
       }
-      const params=JSON.stringify(blog);
+
       axios.post("http://localhost:8000/api/v1/blog/new",blog).then(response=>{
         alert("Blog is created")
+        getBlog();
       }).catch(error=>{
         console.error(error)
       })
@@ -195,7 +196,13 @@ export default {
       route.push({ name: 'edit', params })
     }
 
-    function deleteBlog(post) {
+    const deleteBlog =async(post)=> {
+      axios.delete(`http://localhost:8000/api/v1/blog/${post._id}`).then(reponse=>{
+        alert("post deleted succefully");
+      }).catch(error=>{
+        console.error(error);
+      })
+
 
     }
 
@@ -221,7 +228,8 @@ export default {
       editPost,
       isOpen,
       dialog,
-      createPost
+      createPost,
+      deleteBlog
     }
   }
 }
